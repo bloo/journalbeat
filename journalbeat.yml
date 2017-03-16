@@ -1,0 +1,25 @@
+name: journalbeat
+# The tags of the shipper are included in their own field with each
+# transaction published. Tags make it easy to group servers by different
+# logical properties.
+tags: ["services"]
+input:
+  seek_position: cursor
+  cursor_seek_fallback: tail
+  move_metadata_to_field: journal
+output:
+  logstash:
+    hosts: ["${LOGSTASH_HOST}"]
+    tls:
+      certificate_authorities: ["/etc/logstash-forwarder.crt"]
+logging:
+  level: debug
+  # enable file rotation with default configuration
+  to_files: true
+  # do not log to syslog
+  to_syslog: false
+  files:
+    path: /var/log/journalbeat
+    name: journalbeat.log
+    rotateeverybytes: 10485760 # = 10MB
+    keepfiles: 7
