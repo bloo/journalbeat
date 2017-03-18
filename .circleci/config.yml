@@ -7,6 +7,7 @@ jobs:
       DOCKER_USER: bloo
       PROJECT: ${DOCKER_USER}/journalbeat
       TAG: 0.1.${CIRCLE_BUILD_NUM}
+    working_directory: /${PROJECT}
     steps:
       - checkout
       - setup_docker_engine
