@@ -1,0 +1,19 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: docker:17.03.0-ce
+    environment:
+      DOCKER_USER: bloo
+      PROJECT: ${DOCKER_USER}/journalbeat
+      TAG: 0.1.${CIRCLE_BUILD_NUM}
+    steps:
+      - checkout
+      - setup_docker_engine
+      # build and push Docker image, in remote docker engine env
+      - run:
+        name: Build and Install
+        command: |
+          docker build -t ${PROJECT}:${TAG} .
+          docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
+          docker push ${PROJECT}:${TAG}
