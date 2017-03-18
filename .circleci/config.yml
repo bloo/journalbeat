@@ -8,7 +8,7 @@ jobs:
       DOCKER_USER: bloo
       PROJECT: bloo/journalbeat
       TAG_MAJOR: 0.1
-    working_directory: /${PROJECT}
+    working_directory: /build
     steps:
       - run: apt-get update && apt-get install -y curl git
       - checkout
