@@ -10,9 +10,9 @@ jobs:
       TAG: 0.1.${CIRCLE_BUILD_NUM}
     working_directory: /${PROJECT}
     steps:
+      - run: apt-get update && apt-get install -y curl git
       - checkout
       - setup_docker_engine
-      - run: apt-get update && apt-get install -y curl git
       # use a primary image and install docker
       - run:
           name: Install Docker client
