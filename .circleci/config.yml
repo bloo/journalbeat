@@ -12,7 +12,7 @@ jobs:
     steps:
       - checkout
       - setup_docker_engine
-      - apt-get update && apt-get install -y curl git
+      - run: apt-get update && apt-get install -y curl git
       # use a primary image and install docker
       - run:
           name: Install Docker client
