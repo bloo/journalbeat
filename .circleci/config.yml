@@ -2,8 +2,9 @@ version: 2
 jobs:
   build:
     docker:
-      - image: docker:17.03.0-ce
+      - image: ubuntu:17.04
     environment:
+      DOCKER_VER: 17.03.0-ce
       DOCKER_USER: bloo
       PROJECT: ${DOCKER_USER}/journalbeat
       TAG: 0.1.${CIRCLE_BUILD_NUM}
@@ -11,6 +12,15 @@ jobs:
     steps:
       - checkout
       - setup_docker_engine
+      - apt-get update && apt-get install -y curl git
+      # use a primary image and install docker
+      - run:
+          name: Install Docker client
+          command: |
+            set -x
+            curl -L -o /tmp/docker-${DOCKER_VER}.tgz https://get.docker.com/builds/Linux/x86_64/docker-${DOCKER_VER}.tgz
+            tar -xz -C /tmp -f /tmp/docker-${DOCKER_VER}.tgz
+            mv /tmp/docker/* /usr/bin
       # build and push Docker image, in remote docker engine env
       - run:
           name: Build and Install
