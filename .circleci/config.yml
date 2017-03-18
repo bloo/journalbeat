@@ -13,8 +13,8 @@ jobs:
       - setup_docker_engine
       # build and push Docker image, in remote docker engine env
       - run:
-        name: Build and Install
-        command: |
-          docker build -t ${PROJECT}:${TAG} .
-          docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
-          docker push ${PROJECT}:${TAG}
+          name: Build and Install
+          command: |
+            docker build -t ${PROJECT}:${TAG} .
+            docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
+            docker push ${PROJECT}:${TAG}
